@@ -20,6 +20,7 @@
       font-size: 16px;
       margin-bottom: 20px;
       cursor: pointer;
+      border-radius: 7px;
     }
 
     .box {
@@ -87,9 +88,9 @@
   <br><br>
   <button onclick="generateAllLoadoutsIfReady()">Generate Loadout</button>
 
-  <div id="loadout1" class="box"></div>
-  <div id="loadout2" class="box"></div>
-  <div id="loadout3" class="box"></div>
+  <div id="loadout1"></div>
+  <div id="loadout2"></div>
+  <div id="loadout3"></div>
 
   <script>
     let weapons = [];
@@ -136,6 +137,7 @@
     function generateLoadout(containerId, selectedMap, weaponSlot) {
       const container = document.getElementById(containerId);
       container.innerHTML = "";
+      container.classList.add("box");
 
       const title = document.createElement("h2");
       title.textContent = "Spinning...";
@@ -195,8 +197,11 @@
 
     function generateAllLoadouts(){
       document.getElementById("loadout1").innerHTML = "";
+      document.getElementById("loadout1").classList.remove("box");
       document.getElementById("loadout2").innerHTML = "";
+      document.getElementById("loadout2").classList.remove("box");
       document.getElementById("loadout3").innerHTML = "";
+      document.getElementById("loadout3").classList.remove("box");
 
       const selectedMap = document.querySelector('input[name="map"]:checked').value || "Erangel";
       generateLoadout("loadout1", selectedMap, "Primary");
