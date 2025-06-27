@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PUBG Random Loadout Generator</title>
+  <style>
+    body {
+      /* font-family: Arial, sans-serif; */
+      font-family: 'Brush Script MT', cursive;
+      text-align: center;
+      padding: 2rem;
+      background: transparent;
+      color: #291D3B;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      border-radius: 7px;
+    }
+
+    .box {
+      background: #FFC100;
+      padding: 5px;
+      margin: 10px auto;
+      border-radius: 30px;
+      width: 300px;
+    }
+
+    .attachments {
+      text-align: left;
+    }
+
+    .spinning {
+      animation: pulse-spin 0.25s ease-in-out infinite;
+    }
+
+    @keyframes pulse-spin {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+      }
+    }
+
+    .attachmentAnimation li {
+      opacity: 0;
+      animation: fade-slide-in 0.4s ease forwards;
+    }
+
+    @keyframes fade-slide-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <label for="map-select">Select Map:</label>
+  <div id="map-select-group">
+    <label><input type="radio" name="map" value="Erangel" checked> Erangel</label>
+    <label><input type="radio" name="map" value="Miramar"> Miramar</label>
+    <label><input type="radio" name="map" value="Sanhok"> Sanhok</label>
+    <label><input type="radio" name="map" value="Karakin"> Karakin</label>
+    <label><input type="radio" name="map" value="Paramo"> Paramo</label>
+    <label><input type="radio" name="map" value="Taego"> Taego</label>
+    <label><input type="radio" name="map" value="Deston"> Deston</label>
+    <label><input type="radio" name="map" value="Vikendi"> Vikendi</label>
+    <label><input type="radio" name="map" value="Rondo"> Rondo</label>
+  </div>
+  <br><br>
+  <button onclick="generateAllLoadoutsIfReady()">Generate Loadout</button>
+
+  <div id="loadout1"></div>
+  <div id="loadout2"></div>
+  <div id="loadout3"></div>
+
+  <script>
+    let weapons = [];
+
+    fetch('weapons.json')
+      .then(response => response.json())
+      .then(data => {
+        weapons = data;
+        console.log("Weapons loaded:", weapons);
+      })
+      .catch(error => {
+        console.error("Failed to load weapons.json:", error);
+      });
+
+    const displayNames = {
+        name: "Name",
+        type: "Weapon Type",
+        ammo: "Ammo Type",
+        maps: "Maps",
+        weapon_slot: "Weapon Slot",
+        muzzle: "Muzzle",
+        foregrip: "Foregrip",
+        sight: "Sight",
+        canted_sight: "Canted Sight",
+        magazine: "Magazine",
+        stock: "Stock"
+    }
+
+    function getRandomWeapon(key, value) {
+      if (typeof value === "boolean" && key === "canted_sight") {
+          if (!value) return null;
+          return Math.random() < 0.2 ? "Yes" : "No";
+      }
+
+      if (typeof value === "boolean" && (key === "thermal_4x_sight" || key === "15x_sight")) return null;
+
+      if (!Array.isArray(value) || value.length === 0) return null;
+
+      if (Math.random() < 0.1) return "None";
+      
+      return value[Math.floor(Math.random() * value.length)];
+    }
+
+    function generateLoadout(containerId, selectedMap, weaponSlot) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      container.classList.add("box");
+
+      const title = document.createElement("h2");
+      title.textContent = "Spinning...";
+      title.classList.add("spinning")
+      container.appendChild(title);
+
+      const availableWeapons = weapons.filter(
+        w => w.maps.includes(selectedMap) && !w.drop_weapon && w.weapon_slot.includes(weaponSlot)
+      );
+
+      let spinCount = 0;
+      const spinInterval = setInterval(() => {
+        const randomWeapon = availableWeapons[Math.floor(Math.random() * availableWeapons.length)];
+        title.textContent = randomWeapon.name;
+        spinCount++;
+
+        if (spinCount >= 15) { // roughly 1.5 seconds at 100ms per spin
+          clearInterval(spinInterval);
+
+          // Final weapon selection
+          const finalWeapon = availableWeapons[Math.floor(Math.random() * availableWeapons.length)];
+          title.textContent = finalWeapon.name;
+          title.classList.remove("spinning");
+
+          const attachmentList = document.createElement("ul");
+          attachmentList.classList.add("attachmentAnimation");
+          attachmentList.classList.add("attachments")
+
+          let delay = 0;
+
+          for (const [type, options] of Object.entries(finalWeapon.attachments)) {
+            const choice = getRandomWeapon(type, options);
+            if (choice === null) continue;
+
+            const label = displayNames[type] || type;
+
+            const item = document.createElement("li");
+            item.textContent = `${label}: ${choice}`;
+            item.style.animationDelay = `${delay}s`;
+            delay += 0.2;
+
+            attachmentList.appendChild(item);
+          }
+
+          container.appendChild(attachmentList);
+        }
+      }, 100);
+    }
+
+    function generateAllLoadoutsIfReady(){
+      if (weapons.length === 0) {
+        alert("Weapons data is still loading. Please wait a second and try again.");
+        return;
+      }
+      generateAllLoadouts();
+    }
+
+    function generateAllLoadouts(){
+      document.getElementById("loadout1").innerHTML = "";
+      document.getElementById("loadout1").classList.remove("box");
+      document.getElementById("loadout2").innerHTML = "";
+      document.getElementById("loadout2").classList.remove("box");
+      document.getElementById("loadout3").innerHTML = "";
+      document.getElementById("loadout3").classList.remove("box");
+
+      const selectedMap = document.querySelector('input[name="map"]:checked').value || "Erangel";
+      generateLoadout("loadout1", selectedMap, "Primary");
+      setTimeout(() => { generateLoadout("loadout2", selectedMap, "Primary")},1000);
+      setTimeout(() => { generateLoadout("loadout3", selectedMap, "Secondary")},2000);
+    }
+  </script>
+
+</body>
+</html>
