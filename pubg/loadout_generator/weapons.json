@@ -760,7 +760,7 @@
     "type": "Handgun",
     "drop_weapon": false,
     "ammo": "9mm",
-    "maps": ["Erangel", "Miramar", "Sanhok", "Paramo", "Taego", "Deston", "Rondo"],
+    "maps": ["Erangel", "Miramar", "Paramo", "Taego", "Deston", "Rondo"],
     "weapon_slot": "Secondary",
     "attachments": {
       "muzzle": ["Suppressor"],
@@ -796,7 +796,7 @@
     "type": "Handgun",
     "drop_weapon": false,
     "ammo": "9mm",
-    "maps": ["Erangel", "Miramar", "Sanhok", "Karakin", "Paramo", "Taego", "Deston", "Vikendi", "Rondo"],
+    "maps": ["Erangel", "Miramar", "Karakin", "Paramo", "Taego", "Deston", "Vikendi", "Rondo"],
     "weapon_slot": "Secondary",
     "attachments": {
       "muzzle": ["Suppressor"],
@@ -868,7 +868,7 @@
     "type": "Handgun",
     "drop_weapon": false,
     "ammo": "7.62mm",
-    "maps": ["Erangel", "Sanhok", "Taego", "Deston", "Rondo"],
+    "maps": ["Erangel", "Taego", "Deston", "Rondo"],
     "weapon_slot": "Secondary",
     "attachments": {
       "muzzle": ["Suppressor"],
