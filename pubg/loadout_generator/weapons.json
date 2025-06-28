@@ -1013,7 +1013,7 @@
     "drop_weapon": false,
     "ammo": "60mm Mortar Shell",
     "maps": ["Erangel", "Miramar", "Sanhok", "Karakin", "Paramo", "Taego", "Deston", "Vikendi", "Rondo"],
-    "weapon_slot": "Primary",
+    "weapon_slot": "Tactical",
     "attachments": {
       "muzzle": [],
       "foregrip": [],
