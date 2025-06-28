@@ -23,6 +23,26 @@
       border-radius: 7px;
     }
 
+    .attachments {
+      text-align: left;
+      list-style-type: disc;
+    }
+
+    .attachmentAnimation li {
+      opacity: 0;
+      animation: fade-slide-in 0.4s ease forwards;
+    }
+    @keyframes fade-slide-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .box {
       background: #FFC100;
       padding: 5px;
@@ -31,42 +51,55 @@
       width: 300px;
     }
 
-    .attachments {
-      text-align: left;
+    .mapGroup {
+      width: 350px;
+      padding: 5px;
+      margin: 10px auto;
+    }
+    
+    .radioGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      max-width: 400px;
+    }
+
+    .radioGrid label {
+      background-color: transparent;
+      padding: 2px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    @media (max-width: 425px) {
+      .radioGrid {
+        grid-template-columns: repeat(2,1fr);
+        max-width: 250px;
+      }
+    }
+
+    @media (max-width: 300px) {
+      .radioGrid {
+        grid-template-columns: repeat(1,1fr);
+        max-width: 100px;
+      }
     }
 
     .spinning {
       animation: pulse-spin 0.25s ease-in-out infinite;
     }
-
     @keyframes pulse-spin {
-
       0%,
       100% {
         transform: scale(1);
         opacity: 1;
       }
-
       50% {
         transform: scale(1.1);
         opacity: 0.7;
-      }
-    }
-
-    .attachmentAnimation li {
-      opacity: 0;
-      animation: fade-slide-in 0.4s ease forwards;
-    }
-
-    @keyframes fade-slide-in {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
       }
     }
   </style>
@@ -74,7 +107,7 @@
 
 <body>
   <label for="map-select">Select Map:</label>
-  <div id="map-select-group">
+  <div id="map-select-group" class="radioGrid mapGroup">
     <label><input type="radio" name="map" value="Erangel" checked> Erangel</label>
     <label><input type="radio" name="map" value="Miramar"> Miramar</label>
     <label><input type="radio" name="map" value="Sanhok"> Sanhok</label>
@@ -85,7 +118,7 @@
     <label><input type="radio" name="map" value="Vikendi"> Vikendi</label>
     <label><input type="radio" name="map" value="Rondo"> Rondo</label>
   </div>
-  <br><br>
+  <br>
   <button onclick="generateAllLoadoutsIfReady()">Generate Loadout</button>
 
   <div id="loadout1"></div>
