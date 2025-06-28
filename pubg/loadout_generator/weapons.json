@@ -1013,7 +1013,61 @@
     "drop_weapon": false,
     "ammo": "60mm Mortar Shell",
     "maps": ["Erangel", "Miramar", "Sanhok", "Karakin", "Paramo", "Taego", "Deston", "Vikendi", "Rondo"],
-    "weapon_slot": "Tactical",
+    "weapon_slot": "Primary",
+    "attachments": {
+      "muzzle": [],
+      "foregrip": [],
+      "sight": [],
+      "canted_sight": false,
+      "thermal_4x_sight": false,
+      "15x_sight": false,
+      "magazine": [],
+      "stock": []
+    }
+  },
+  {
+    "name": "EMT Gear",
+    "type": "ETC",
+    "drop_weapon": false,
+    "ammo": "n/a",
+    "maps": ["Erangel", "Miramar", "Sanhok", "Karakin", "Paramo", "Taego", "Deston", "Vikendi", "Rondo"],
+    "weapon_slot": "Primary",
+    "attachments": {
+      "muzzle": [],
+      "foregrip": [],
+      "sight": [],
+      "canted_sight": false,
+      "thermal_4x_sight": false,
+      "15x_sight": false,
+      "magazine": [],
+      "stock": []
+    }
+  },
+  {
+    "name": "Tactical Pack",
+    "type": "ETC",
+    "drop_weapon": false,
+    "ammo": "n/a",
+    "maps": ["Erangel", "Miramar", "Sanhok", "Karakin", "Paramo", "Taego", "Deston", "Vikendi", "Rondo"],
+    "weapon_slot": "Primary",
+    "attachments": {
+      "muzzle": [],
+      "foregrip": [],
+      "sight": [],
+      "canted_sight": false,
+      "thermal_4x_sight": false,
+      "15x_sight": false,
+      "magazine": [],
+      "stock": []
+    }
+  },
+  {
+    "name": "Zipline Gun",
+    "type": "ETC",
+    "drop_weapon": false,
+    "ammo": "Zipline Gun Cable",
+    "maps": ["Erangel", "Miramar", "Sanhok", "Karakin", "Paramo", "Taego", "Deston", "Vikendi", "Rondo"],
+    "weapon_slot": "Secondary",
     "attachments": {
       "muzzle": [],
       "foregrip": [],
