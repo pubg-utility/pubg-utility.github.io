@@ -161,10 +161,12 @@
      * - For invalid or empty inputs: Returns null.
      */
     function getRandomAttachment(key, value) {
+      /**
       if (typeof value === "boolean" && key === "canted_sight") {
           if (!value) return null;
           return Math.random() < 0.2 ? "Yes" : "No";
       }
+      */
 
       if (typeof value === "boolean" && (key === "thermal_4x_sight" || key === "15x_sight")) return null;
 
