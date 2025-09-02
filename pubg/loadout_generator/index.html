@@ -153,6 +153,8 @@
         stock: "Stock"
     }
 
+    const activeSpins = {};
+
     /**
      * Returns a randomized attachment based on the provided key and value.
      *
@@ -246,6 +248,10 @@
         w => w.maps.includes(selectedMap) && !w.drop_weapon && w.weapon_slot.includes(weaponSlot)
       );
 
+      if (activeSpins[containerId]) {
+        clearInterval(activeSpins[containerId]);
+      }
+
       let spinCount = 0;
       const spinInterval = setInterval(() => {
         const randomWeapon = availableWeapons[Math.floor(Math.random() * availableWeapons.length)];
@@ -254,6 +260,7 @@
 
         if (spinCount >= 15) { // roughly 1.5 seconds at 100ms per spin
           clearInterval(spinInterval);
+          delete activeSpins[containerId];
 
           // Final weapon selection
           const finalWeapon = availableWeapons[Math.floor(Math.random() * availableWeapons.length)];
@@ -261,8 +268,7 @@
           title.classList.remove("spinning");
 
           const attachmentList = document.createElement("ul");
-          attachmentList.classList.add("attachmentAnimation");
-          attachmentList.classList.add("attachments")
+          attachmentList.classList.add("attachmentAnimation", "attachments");
 
           let delay = 0;
 
@@ -287,6 +293,7 @@
           container.appendChild(attachmentList);
         }
       }, 100);
+      activeSpins[containerId] = spinInterval;
     }
 
     /**
